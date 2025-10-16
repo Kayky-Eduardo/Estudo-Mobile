@@ -3,11 +3,11 @@ import 'dart:io';
 void main () {
   stdout.write('Entre com valor de A: ');
   String? inputA = stdin.readLineSync();
-  var a = (inputA != null && inputA.isNotEmpty) ? int.parse(inputA) : null;
+  var a = (inputA != null && inputA.isNotEmpty) ? double.tryParse(inputA) : null;
 
   stdout.write('Entre com valor de B: ');
   String? inputB = stdin.readLineSync();
-  var b = (inputB != null && inputB.isNotEmpty) ? int.parse(inputB) : null;
+  var b = (inputB != null && inputB.isNotEmpty) ? double.tryParse(inputB) : null;
 
   if (b == 0 ) {
     print("não é possível fazer divisão por 0");
