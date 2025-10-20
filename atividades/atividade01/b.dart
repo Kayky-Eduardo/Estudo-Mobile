@@ -9,7 +9,18 @@ void main (){
   String? inputB = stdin.readLineSync();
   var b = (inputB != null && inputB.isNotEmpty) ? int.parse(inputB) : null;
 
-  int soma = a! + b!;
-
-  print('O valor da soma de $a + $b é $soma');
+  if (a != null || b != null) {
+    int soma = a! + b!;
+    print('O valor da soma de $a + $b é $soma');  
+    print('O valor da subtração é: ${a - b}');
+    print('O valor da mutiplicação é: ${a * b}');
+    if (b != 0) {
+      print('O valor da divisão é: ${a / b}');
+    } else {
+      print('É impossível dividir por 0');
+    }   
+    
+  } else {
+    print('Valor inválido');
+  }
 }

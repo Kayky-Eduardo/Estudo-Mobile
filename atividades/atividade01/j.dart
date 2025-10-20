@@ -6,9 +6,9 @@ void main () {
   var reais = (input != null && input.isNotEmpty) ? double.tryParse(input) : null;
 
   if (reais != null) {
-    double euro = reais / 6.0;
-    double dolar = reais / 5.5;
-    double won = reais / 0.0041;
+    double euro = reais / 6.26;
+    double dolar = reais / 5.37;
+    double won = reais / 0.0038;
 
     print('Valor em Euro: ${euro.toStringAsFixed(2)}');
     print('Valor em Dolar: ${dolar.toStringAsFixed(2)}');

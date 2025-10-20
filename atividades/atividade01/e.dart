@@ -11,8 +11,10 @@ void main () {
 
   if (b == 0 ) {
     print("não é possível fazer divisão por 0");
+  } else if (a == null || b == null){
+    print("Verifique suas respostas");
   } else {
-    double divisao = a! / b!;
-    print("$a / $b = ${divisao.toStringAsFixed(4)}");
+    double divisao = a / b;
+    print("$a / $b = ${divisao.toStringAsFixed(2)}");
   }
 }

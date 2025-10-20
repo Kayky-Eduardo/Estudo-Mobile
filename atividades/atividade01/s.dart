@@ -13,9 +13,14 @@ void main() {
   String? inputTempo = stdin.readLineSync();
   var tempo = (inputTempo != null && inputTempo.isNotEmpty) ? double.tryParse(inputTempo) : null;
 
-  double juros = capital! * taxa! / 100 * tempo!;
-  double montante = capital + juros;
+  if (taxa != null || tempo != null || capital != null) {
+    double juros = capital! * taxa! / 100 * tempo!;
+    double montante = capital + juros;
 
-  print('Juros: R\$ ${juros.toStringAsFixed(2)}');
-  print('Montante: R\$ ${montante.toStringAsFixed(2)}');
+    print('Juros: R\$ ${juros.toStringAsFixed(2)}');
+    print('Montante: R\$ ${montante.toStringAsFixed(2)}');
+  } else {
+    print("Valor inválido!");
+  }
+  
 }
