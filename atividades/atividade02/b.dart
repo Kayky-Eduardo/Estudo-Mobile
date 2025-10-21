@@ -13,14 +13,20 @@ void main() {
       stdout.write("Digite um número inteiro: ");
       String? inputN = stdin.readLineSync();
       var n = (inputN != null && inputN.isNotEmpty) ? int.tryParse(inputN) : null;
+
       if (n != null && n >= 0) {
-        for (int i = 0; i < n; i++) {
-          int valor = i * (i);
-          print("$i°: $valor x ${i + 1}");
+        int resultado = 1;
+        for (int i = 1; i < n; i++) {
+          resultado *= i;
+          print("$i°: $resultado");
         }
       } else {
         print("Valor inválido!");
       }
+    } else if (opcao == 2) {
+      print("\nAdeus!\n");
+    } else {
+      print("\nOpção inválida. Escolha 1 ou 2.\n");
     }
   }
 }
