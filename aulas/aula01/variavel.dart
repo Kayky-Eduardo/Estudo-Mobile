@@ -5,9 +5,9 @@ void main() {
 
   String nome = "John Doe";
 
-  var teste = "José";
+  // var teste = "José";
 
-  var numero = 10;
+  // var numero = 10;
 
   print('-' * 70);
   print('Meu nome é $nome, tenho $idade anos.');

@@ -2,8 +2,6 @@ void main () {
   // pode ser null
   String? nome;
 
-  String saudacao = "Olá";
-
   print('Exemplo 1: Variável nula');
   print(nome);
   
@@ -13,7 +11,7 @@ void main () {
   print(nome);
 
   print("\nExemplo 3: Acessando valor com !");
-  String texto = nome!;
+  String texto = nome;
   print("Texto com nome: $texto");
 
   print("\nExemplo 4: tentando usar uma variável não incializada");

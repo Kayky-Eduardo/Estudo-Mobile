@@ -4,7 +4,7 @@ void main() {
   int? opcao;
   
   while (opcao != 2) {
-    stdout.write("1. Calcular Fatorial\n2. Sair\nResposta: ");
+    stdout.write("\n1. Calcular Fatorial\n2. Sair\nResposta: ");
     
     String? inputO = stdin.readLineSync();
     opcao = (inputO != null && inputO.isNotEmpty) ? int.tryParse(inputO) : null;
@@ -16,9 +16,10 @@ void main() {
 
       if (n != null && n >= 0) {
         int resultado = 1;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
+          stdout.write("$i x $resultado");
           resultado *= i;
-          print("$i°: $resultado");
+          print(" = $resultado");
         }
       } else {
         print("Valor inválido!");
