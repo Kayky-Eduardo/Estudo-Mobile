@@ -1,6 +1,5 @@
 import 'dart:io';
 
-// incompleta
 void main () {
 
   int? opcao;

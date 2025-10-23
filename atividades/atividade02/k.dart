@@ -18,30 +18,19 @@ void main () {
       String? inputV2 = stdin.readLineSync();
       int? v2 = (inputV2 != null && inputV2.isNotEmpty) ? int.tryParse(inputV2) : null;
 
-      if ((v1 != null && v1 > 0) && (v2 != null && v2 > 0)) {  
-        bool feito = false;
-        int resultado;
-        while(!feito) {
-          if (v1! > v2!) {
-            double quociente = v1 / v2;
-            int resto1 = v1 % v2;
-            v1 = ((quociente.round()) * v2) + resto1;
-            if (resto1 == 0) {
-              resultado = v2;
-              print("Resultado: $resultado");
-              feito = true;
-            } else if (resto1 != 0) {
-              double quociente2 = v2 / resto1;
-              int resto2 = v2 % resto1;
-              v2 = (quociente2.round() * resto1) + resto2;
-            }
-          } else {
-            print("Impossível");
-            break;
-          }
+      if (v1 != null && v1 > 0 && v2 != null && v2 > 0) {
+        int a = v1;
+        int b = v2;
+
+        while (b != 0) {
+          int resto = a % b;
+          a = b;
+          b = resto;
         }
+
+        print("O MDC de $v1 e $v2 é: $a");
       } else {
-        print("\nValor inválidos!");
+        print("Valores inválidos! Digite números inteiros positivos.");
       }
     } else if (opcao == 2) {
       print("\nAdeus");
