@@ -15,8 +15,12 @@ void main () {
       int? n = (input != null && input.isNotEmpty) ? int.tryParse(input) : null;
 
       if (n != null) {
-        for (int i = n; i != 0; i--) {
-          stdout.write("$i ");
+        if(n > 0) {
+          for (int i = n; i != 0; i--) {
+            stdout.write("$i ");
+          }
+        } else {
+          print("\nDigite um número maior que 0");
         }
       } else {
         print("\nValor inválidos!");

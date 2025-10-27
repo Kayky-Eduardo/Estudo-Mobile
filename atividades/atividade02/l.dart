@@ -20,7 +20,7 @@ void main () {
           continue;
         }
         double percentual = 0.02;
-        for (int s = 0; temp! >= 25; s++) {
+        for (int s = 0; temp! > 25; s++) {
           temp -= temp * percentual;
           if (s >= 60) {
             int min = s ~/ 60;
