@@ -14,9 +14,7 @@ void main () {
     String? inputO = stdin.readLineSync();
     print("");
     int? opcao = (inputO != null && inputO.isNotEmpty) ? int.parse(inputO) : null;
-    if (opcao == null) {
-      print("\nDigite uma opção válida\n");
-    }
+
     if (opcao == 1) {
       stdout.write('Quantos valores deseja adicionar: ');
       String? inputQuantidade = stdin.readLineSync();

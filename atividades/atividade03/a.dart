@@ -11,9 +11,7 @@ void main () {
     String? inputO = stdin.readLineSync();
     print("");
     int? opcao = (inputO != null && inputO.isNotEmpty) ? int.parse(inputO) : null;
-    if (opcao == null) {
-      print("\nDigite uma opção válida\n");
-    }
+
     if (opcao == 1) {
       stdout.write('Quantos valores deseja adicionar: ');
       String? inputQuantidade = stdin.readLineSync();
@@ -33,9 +31,13 @@ void main () {
         print("Digite um valor válido");
       }
     } else if (opcao == 2) {
-      List<int> filtro = lista_numeros.where((num) => num % 2 == 0).toList();
-      int soma = filtro.reduce((a, b) => a + b);
-      print("Resultado da somatória: $soma");
+      if (lista_numeros.length > 0) {
+        List<int> filtro = lista_numeros.where((num) => num % 2 == 0).toList();
+        int soma = filtro.reduce((a, b) => a + b);
+        print("Resultado da somatória: $soma");
+      } else {
+        print("Elementos insuficientes na lista");
+      }
     } else if (opcao == 3) {
       stdout.write("Valores na lista: ");
       lista_numeros.forEach((numero) => stdout.write("$numero "));

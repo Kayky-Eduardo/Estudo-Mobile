@@ -13,9 +13,7 @@ void main () {
     String? inputO = stdin.readLineSync();
     print("");
     int? opcao = (inputO != null && inputO.isNotEmpty) ? int.parse(inputO) : null;
-    if (opcao == null) {
-      print("\nDigite uma opção válida\n");
-    }
+
     if (opcao == 1) {
       stdout.write('Quantas palavras deseja adicionar: ');
       String? inputQuantidade = stdin.readLineSync();
@@ -48,6 +46,8 @@ void main () {
         } else {
           print("Nenhuma palavra encontrada!");
         }
+      } else {
+        print("Elementos insuficientes na lista");
       }
 
     } else if (opcao == 3) {
