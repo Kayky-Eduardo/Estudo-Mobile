@@ -29,37 +29,28 @@ void main () {
         lista.add(valor1);
         lista_subconjunto.add(valor2);
       } else {
-        print("Erro! Verifique suas respostas!");
+        print("\nErro! Verifique suas respostas!");
       }
     } else if (opcao == 2) {
       if (lista.length > 0) {
-        int qnt_diferenca = 0;
-        // for (int i=0; i<lista.length; i++) {
-        //   for(int j=0; j<i; j++) {
-        //     if(!)
-        //   }
-        // }
         for (var valor1 in lista) {
           if (!lista_subconjunto.contains(valor1)) {
-            qnt_diferenca++;
             diferente = true;
+          } else {
+            diferente = false;
           }
         }
 
         print("-" * 70);
+        print("Lista Principal: $lista\nLista Subconjunto: $lista_subconjunto\n");
         print("Diferente: $diferente");
-        print("Lista Principal: $lista\nLista Subconjunto: $lista_subconjunto\n"
-        "Quantidade de numeros diferentes: $qnt_diferenca");
         print("-" * 70);
       } else {
         print("Elementos insuficientes na lista");
       }
     } else if (opcao == 3) {
-      print("Valores na lista:\n");
-        for (int i=0; i < lista.length; i++) {
-          stdout.write("${lista[i]} ");
-        }
-      print("");
+      print("Lista principal: $lista");
+      print("Lista Subconjunto: $lista_subconjunto");
     } else if (opcao == 4) {
       print("\nAdeus!");
       break;

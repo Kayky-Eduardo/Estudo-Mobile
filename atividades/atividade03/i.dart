@@ -17,8 +17,19 @@ void main () {
       stdout.write("Digite o email: ");
       String? inputEmail = stdin.readLineSync();
       String? email = (inputEmail != null && inputEmail.trim().isNotEmpty)? inputEmail.toString() : null;
-      if (email != null) {
-        lista.add(email);
+      if (email != null ) {
+        int repetido_arr = 0;
+        for (int i=0; i<email.length; i++) {
+          if (email[i].contains('@')) {
+            repetido_arr++;
+          }
+        }
+        if (repetido_arr > 1) {
+          print("Formato de email incorreto!");
+        } else {
+          lista.add(email);
+          print("Email cadastrado!");
+        }
       } else {
         print("Email inválido");
       }
@@ -32,9 +43,13 @@ void main () {
       }
 
     } else if (opcao == 3) {
-      print("Valores na lista: ");
-      lista.forEach((numero) => print("$numero"));
-      print("");
+      if (lista.length > 0) {
+        print("Valores na lista: ");
+        lista.forEach((numero) => print("$numero"));
+        print("");
+      } else {
+        print("Lista vazia!");
+      }
     } else if (opcao == 4) {
       print("\nAdeus!");
       break;

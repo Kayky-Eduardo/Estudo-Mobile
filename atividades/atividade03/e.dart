@@ -37,18 +37,12 @@ void main () {
       }
     } else if (opcao == 2) {
       if (lista_inteiros.length > 0) {
-        Set<int> nova_lista = {};
-        for (int i=0; i < lista_inteiros.length; i++) {
-          for (int j=0; j < i; j++) {
-            if (lista_inteiros[i] > lista_inteiros[j]) {
-              nova_lista.add(j);
-            } else {
-              nova_lista.add(i);
-            }
-          }
-        }
+        Set<int> nova_lista_set = lista_inteiros.toSet();
+        List<int> nova_lista = nova_lista_set.toList();
+        nova_lista.sort();
         print("Lista original: $lista_inteiros");
-        print("Segundo maior número: ${nova_lista}");
+        print("Lista atual: $nova_lista");
+        print("Segundo maior número: ${nova_lista[nova_lista.length - 2]}");
       } else {
         print("Lista com valores insuficientes!");
       }
