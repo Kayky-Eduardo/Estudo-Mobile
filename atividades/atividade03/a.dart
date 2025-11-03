@@ -32,9 +32,14 @@ void main () {
       }
     } else if (opcao == 2) {
       if (lista_numeros.length > 0) {
-        List<int> filtro = lista_numeros.where((num) => num % 2 == 0).toList();
-        int soma = filtro.reduce((a, b) => a + b);
-        print("Resultado da somatória: $soma");
+        List<int> filtro = lista_numeros.where((num) => num > 10 && num % 2 == 0).toList();
+        if (filtro.length > 1) {
+          print("Números pares: $filtro");
+          int soma = filtro.reduce((a, b) => a + b);
+          print("Resultado da somatória: $soma");
+        } else {
+          print("Adicione mais elementos!");
+        }
       } else {
         print("Elementos insuficientes na lista");
       }
