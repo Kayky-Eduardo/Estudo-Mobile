@@ -27,9 +27,10 @@ void main () {
   while (true) {
     stdout.write("\n1. Adicionar produto\n2. Atualizar quantidade de produto"
     "\n3. Ver carrinho\n4. Remover produto\n5. Relatório\n6. Sair\nResposta: ");
+
     String? inputO = stdin.readLineSync();
-    print("");
     int? opcao = (inputO != null && inputO.isNotEmpty) ? int.parse(inputO) : null;
+    print("=" * 70);
 
     if (opcao == 1) {
       stdout.write('Produto: ');
@@ -41,7 +42,7 @@ void main () {
       String? inputQuantidade = stdin.readLineSync();
       int? estoqueQ = (inputQuantidade != null && inputQuantidade.isNotEmpty) ? int.tryParse(inputQuantidade) : null; 
         
-      stdout.write('Valor(unidade): ');
+      stdout.write('Valor(por unidade): ');
       String? inputValor = stdin.readLineSync();
       double? produtoV = (inputValor != null && inputValor.isNotEmpty) ? double.tryParse(inputValor) : null;
 
@@ -53,6 +54,7 @@ void main () {
       } else
       {
         print("\nVerifique se possui algum valor preenchido de forma incorreta!");
+        print("Produto: texto - Quantidade: N°s inteiros - Valor: Preço em números");
       }
     } else if (opcao == 2) {
       if (carrinho.length > 0) {
@@ -73,9 +75,11 @@ void main () {
 
         if (escolhaP != null && escolhaP.trim().isNotEmpty) {
           if (carrinho.containsKey(escolhaP)) {
+          
             stdout.write("Nova quantidade: ");
             String? inputNovaQ = stdin.readLineSync();
             int? novaQ = (inputNovaQ != null && inputNovaQ.isNotEmpty) ? int.tryParse(inputNovaQ) : null;
+            
             if (novaQ != null && novaQ >= 0) {
               print("$escolhaP:\n${carrinho[escolhaP]}");
               carrinho[escolhaP]['estoque'] = novaQ;
@@ -97,6 +101,7 @@ void main () {
           'Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
         print("-" * 70);
+     
       } else {
         print("Lista vazia!");
       }
@@ -104,6 +109,7 @@ void main () {
     } else if (opcao == 4) {
       if (carrinho.length > 0) {
         print("Produtos no carrinho:\n");
+       
         carrinho.forEach((produto, dados) {
           print("-" * 70);
           double subtotal = dados['estoque'] * dados['valor'];
@@ -114,7 +120,8 @@ void main () {
 
         stdout.write("\nSelecione o produto: ");
         String? inputEscolha = stdin.readLineSync();
-        String? escolhaP = (inputEscolha != null && inputEscolha.isNotEmpty) ? inputEscolha : null;
+        String? escolhaP = (inputEscolha != null && inputEscolha.isNotEmpty) ?
+        inputEscolha.toLowerCase() : null;
 
         if (escolhaP != null && escolhaP.trim().isNotEmpty) {
           if (carrinho.containsKey(escolhaP)) {
@@ -135,6 +142,7 @@ void main () {
       // um número fora da lista para fazer a comparação de forma mais rapida
       double maisCaroNum = 0;
       double media = 0;
+
       if (carrinho.length > 0) {
         carrinho.forEach((produto, dados) {
           print("-" * 70);
@@ -144,6 +152,7 @@ void main () {
           
           // validação para verificar se este produto tem o valor mais caro que o ultimo
           if (dados['valor'] > maisCaroNum) {
+            // se tiver eu troco o valor do número mais caro e esvazio a lista
             maisCaroNum = dados['valor'];
             maisCaro.clear();
             double subtotalMaisCaro = dados['valor'] * dados['estoque'];
@@ -174,7 +183,7 @@ void main () {
       break;
     
     } else {
-      print("\nValor inválido\n");
+      print("\nResposta inválida\n");
     }
   }
 }
