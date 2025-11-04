@@ -23,13 +23,20 @@
 import 'dart:io';
 
 void main () {
-  Map<String, dynamic> carrinho = {}; // exemplo de como vou usar {nome : {valor: x, quantidade: y }}
+  Map<String, dynamic> carrinho = {}; // exemplo de como vou usar {nome : {preço: x, quantidade: y }}
   while (true) {
-    stdout.write("\n1. Adicionar produto\n2. Atualizar quantidade de produto"
-    "\n3. Ver carrinho\n4. Remover produto\n5. Relatório\n6. Sair\nResposta: ");
+    stdout.write(
+      "\n1. Adicionar produto"
+      "\n2. Atualizar quantidade"
+      "\n3. Ver carrinho"
+      "\n4. Remover produto"
+      "\n5. Relatório"
+      "\n6. Sair"
+      "\nResposta: "
+    );
 
     String? inputO = stdin.readLineSync();
-    int? opcao = (inputO != null && inputO.isNotEmpty) ? int.parse(inputO) : null;
+    int? opcao = (inputO != null && inputO.isNotEmpty) ? int.tryParse(inputO) : null;
     print("=" * 70);
 
     if (opcao == 1) {
@@ -39,22 +46,25 @@ void main () {
       inputNomeProduto.toLowerCase() : null; 
     
       stdout.write('Quantidade(estoque): ');
-      String? inputQuantidade = stdin.readLineSync();
-      int? estoqueQ = (inputQuantidade != null && inputQuantidade.isNotEmpty) ? int.tryParse(inputQuantidade) : null; 
+      String? inputEstoque = stdin.readLineSync();
+      int? estoqueQ = (inputEstoque != null && inputEstoque.isNotEmpty) ? int.tryParse(inputEstoque) : null; 
         
-      stdout.write('Valor(por unidade): ');
-      String? inputValor = stdin.readLineSync();
-      double? produtoV = (inputValor != null && inputValor.isNotEmpty) ? double.tryParse(inputValor) : null;
+      stdout.write('Preço(por unidade): ');
+      String? inputPreco = stdin.readLineSync();
+      double? preco = (inputPreco != null && inputPreco.isNotEmpty) ? double.tryParse(inputPreco) : null;
 
-      if (estoqueQ != null && produtoV != null && nomeP != null
-      && nomeP.trim() != '' && (produtoV > 0 && estoqueQ >= 0))
-      {
-        carrinho['$nomeP'] = {"valor": produtoV, "estoque": estoqueQ};
-        print("\nItem cadastrado!");
-      } else
-      {
-        print("\nVerifique se possui algum valor preenchido de forma incorreta!");
-        print("Produto: texto - Quantidade: N°s inteiros - Valor: Preço em números");
+      if (estoqueQ != null && preco != null && nomeP != null
+      && nomeP.trim() != '' && (preco > 0 && estoqueQ >= 0)) {
+        if (!carrinho.containsKey(nomeP)) {
+          carrinho['$nomeP'] = {"preço": preco, "estoque": estoqueQ};
+          print("\nItem cadastrado!");
+        } else {
+          print("\nEste produto já está cadastrado!");
+          print("Se quiser aumentar a quantidade, opção N° 2.");
+        }
+      } else {
+        print("\nVerifique se possui algum campo preenchido de forma incorreta!");
+        print("Exemplo:\nProduto: texto - Quantidade: N°s inteiros - Preço: Preço em números");
       }
     } else if (opcao == 2) {
       if (carrinho.length > 0) {
@@ -62,8 +72,8 @@ void main () {
         print("Produtos no carrinho:\n");
         carrinho.forEach((produto, dados) {
           print("-" * 70);
-          double subtotal = dados['estoque'] * dados['valor'];
-          print('$produto - Estoque: ${dados['estoque']} - Valor: ${dados['valor']} -'
+          double subtotal = dados['estoque'] * dados['preço'];
+          print('$produto - Estoque: ${dados['estoque']} - Preço: ${dados['preço']} -'
           ' Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
         print("-" * 70);
@@ -76,7 +86,7 @@ void main () {
         if (escolhaP != null && escolhaP.trim().isNotEmpty) {
           if (carrinho.containsKey(escolhaP)) {
           
-            stdout.write("Nova quantidade: ");
+            stdout.write("Nova quantidade(estoque): ");
             String? inputNovaQ = stdin.readLineSync();
             int? novaQ = (inputNovaQ != null && inputNovaQ.isNotEmpty) ? int.tryParse(inputNovaQ) : null;
             
@@ -96,8 +106,8 @@ void main () {
         print("Produtos no carrinho:\n");
         carrinho.forEach((produto, dados) {
           print("-" * 70);
-          double subtotal = dados['estoque'] * dados['valor'];
-          print('$produto - Estoque: ${dados['estoque']} - Valor: ${dados['valor']} - '
+          double subtotal = dados['estoque'] * dados['preço'];
+          print('$produto - Estoque: ${dados['estoque']} - Preço: ${dados['preço']} - '
           'Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
         print("-" * 70);
@@ -112,8 +122,8 @@ void main () {
        
         carrinho.forEach((produto, dados) {
           print("-" * 70);
-          double subtotal = dados['estoque'] * dados['valor'];
-          print('$produto - Estoque: ${dados['estoque']} - Valor: ${dados['valor']} - '
+          double subtotal = dados['estoque'] * dados['preço'];
+          print('$produto - Estoque: ${dados['estoque']} - Preço: ${dados['preço']} - '
           'Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
         print("-" * 70);
@@ -137,43 +147,63 @@ void main () {
     } else if (opcao == 5) {
       num quantidadeTotal = 0;
       double valorTotal = 0;
-      // utilizo uma lista para guardar as informações do produto mais caro
-      List<String> maisCaro = [];
-      // um número fora da lista para fazer a comparação de forma mais rapida
-      double maisCaroNum = 0;
       double media = 0;
+
+      String produtoMaisCaro = '';
+      double precoMaisCaro = 0;
+      int estoqueMaisCaro = 0;
+      double subtotalMaisCaro = 0;
+
+      String produtoMaiorSubtotal = '';
+      double precoMaiorSubtotal = 0;
+      int estoqueMaiorSubtotal = 0;
+      double maiorSubtotal = 0;
 
       if (carrinho.length > 0) {
         carrinho.forEach((produto, dados) {
           print("-" * 70);
-          double subtotal = dados['estoque'] * dados['valor'];
+          double preco = dados['preço'];
+          int estoque = dados['estoque'];
+          double subtotal = preco * estoque;
+
           valorTotal += subtotal;
-          quantidadeTotal += dados['estoque'];
-          
-          // validação para verificar se este produto tem o valor mais caro que o ultimo
-          if (dados['valor'] > maisCaroNum) {
-            // se tiver eu troco o valor do número mais caro e esvazio a lista
-            maisCaroNum = dados['valor'];
-            maisCaro.clear();
-            double subtotalMaisCaro = dados['valor'] * dados['estoque'];
-            maisCaro = [produto, '${dados["valor"]}', '${dados["estoque"]}', '$subtotalMaisCaro'];
+          quantidadeTotal += estoque;
+
+          if (preco > precoMaisCaro) {
+            precoMaisCaro = preco;
+            produtoMaisCaro = produto;
+            estoqueMaisCaro = estoque;
+            subtotalMaisCaro = subtotal;
           }
-          
-          print('$produto - Estoque: ${dados['estoque']} - Valor: ${dados['valor']} -'
-          ' Subtotal: ${subtotal.toStringAsFixed(2)}');
-        
+
+          if (subtotal > maiorSubtotal) {
+            maiorSubtotal = subtotal;
+            produtoMaiorSubtotal = produto;
+            precoMaiorSubtotal = preco;
+            estoqueMaiorSubtotal = estoque;
+          }
+
+          print('$produto - Estoque: $estoque - Valor: $preco - '
+          'Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
 
         media = valorTotal / quantidadeTotal;
 
         print("=" * 70);
-        print("Valor total: $valorTotal");
-        print("Quantidade total: $quantidadeTotal");
-        print("Produto mais caro(por unidade): ${maisCaro[0]} - valor: ${maisCaro[1]} - "
-        "Estoque: ${maisCaro[2]} - Subtotal: ${maisCaro[3]}");
+        print("Relatório geral:");
+        print("Valor total: ${valorTotal.toStringAsFixed(2)}");
+        print("Quantidade total: $quantidadeTotal\n");
+
+        print("Produto mais caro (por unidade):");
+        print("$produtoMaisCaro - Preço: ${precoMaisCaro.toStringAsFixed(2)} - "
+        "Estoque: $estoqueMaisCaro - Subtotal: ${subtotalMaisCaro.toStringAsFixed(2)}\n");
+
+        print("Produto com maior subtotal:");
+        print("$produtoMaiorSubtotal - Preço: ${precoMaiorSubtotal.toStringAsFixed(2)} - "
+        "Estoque: $estoqueMaiorSubtotal - Subtotal: ${maiorSubtotal.toStringAsFixed(2)}\n");
+
         print("Média de preço: ${media.toStringAsFixed(2)}");
         print("=" * 70);
-      
       } else {
         print("Carrinho vazio");
       }
