@@ -91,15 +91,16 @@ void main () {
             int? novaQ = (inputNovaQ != null && inputNovaQ.isNotEmpty) ? int.tryParse(inputNovaQ) : null;
             
             if (novaQ != null && novaQ >= 0) {
-              print("$escolhaP:\n${carrinho[escolhaP]}");
               carrinho[escolhaP]['estoque'] = novaQ;
+            } else {
+              print("Verifique o valor da quantidade!");
             }
           } else {
             print("Este produto não foi encontrado.");
           }
         }
       } else {
-        print("Lista vazia!");
+        print("Carrinho vazio!");
       }
     } else if (opcao == 3) {
       if (carrinho.length > 0) {
@@ -113,7 +114,8 @@ void main () {
         print("-" * 70);
      
       } else {
-        print("Lista vazia!");
+        print("Carrinho vazio!");
+        print("=" * 70);
       }
 
     } else if (opcao == 4) {
@@ -142,7 +144,8 @@ void main () {
           }
         }
       } else {
-        print("Lista vazia!");
+        print("Carrinho vazio!");
+        print("=" * 70);
       }
     } else if (opcao == 5) {
       num quantidadeTotal = 0;
@@ -187,25 +190,37 @@ void main () {
           'Subtotal: ${subtotal.toStringAsFixed(2)}');
         });
 
-        media = valorTotal / quantidadeTotal;
+        if (valorTotal > 0 && quantidadeTotal > 0) {
+          media = valorTotal / quantidadeTotal;
+        }
 
         print("=" * 70);
         print("Relatório geral:");
         print("Valor total: ${valorTotal.toStringAsFixed(2)}");
         print("Quantidade total: $quantidadeTotal\n");
 
-        print("Produto mais caro (por unidade):");
+        stdout.write("Produto mais caro (por unidade): ");
         print("$produtoMaisCaro - Preço: ${precoMaisCaro.toStringAsFixed(2)} - "
         "Estoque: $estoqueMaisCaro - Subtotal: ${subtotalMaisCaro.toStringAsFixed(2)}\n");
 
-        print("Produto com maior subtotal:");
-        print("$produtoMaiorSubtotal - Preço: ${precoMaiorSubtotal.toStringAsFixed(2)} - "
-        "Estoque: $estoqueMaiorSubtotal - Subtotal: ${maiorSubtotal.toStringAsFixed(2)}\n");
+        if(produtoMaiorSubtotal.isNotEmpty) {
+          stdout.write("Produto com maior subtotal: ");
+          print("$produtoMaiorSubtotal - Preço: ${precoMaiorSubtotal.toStringAsFixed(2)} - "
+          "Estoque: $estoqueMaiorSubtotal - Subtotal: ${maiorSubtotal.toStringAsFixed(2)}\n");
+        } else {
+          print("Quantidade de produtos em estoque insuficiente para realizar o cálculo!\n");
+        }
 
-        print("Média de preço: ${media.toStringAsFixed(2)}");
-        print("=" * 70);
+        if (!media.isNaN) {
+          print("Média de preço: ${media.toStringAsFixed(2)}");
+          print("=" * 70);
+        } else {
+          print("Sem média devido a quantidade em estoque");
+        }
+
       } else {
         print("Carrinho vazio");
+        print("=" * 70);
       }
 
     } else if (opcao == 6) {
