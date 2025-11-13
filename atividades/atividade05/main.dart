@@ -213,7 +213,6 @@ void main () {
       relatorio(carrinho);
 
     } else if (opcao == 6) {
-      
       print("\nAdeus!");
       break;
     
